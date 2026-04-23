@@ -44,7 +44,7 @@ pub(crate) async fn get_all_runtimes(session: &Session) -> Result<Vec<RuntimeInf
     {
         Ok(replies) => replies,
         Err(e) => {
-            anyhow::bail!("Failed to send Query to Zenoh-Flow Daemon(s): {:?}", e);
+            anyhow::bail!("Failed to send Query to Zenoh-Flow Daemon(s): {e:?}");
         }
     };
 

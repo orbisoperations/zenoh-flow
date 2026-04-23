@@ -30,8 +30,7 @@ impl<'a> Validator<'a> {
     pub(crate) fn validate_node_id(&mut self, node_id: &'a NodeId) -> Result<()> {
         if !self.node_ids.insert(node_id) {
             bail!(
-                "Two nodes share the same identifier: < {} >. The identifiers must be unique.",
-                node_id
+                "Two nodes share the same identifier: < {node_id} >. The identifiers must be unique."
             );
         }
 
@@ -41,9 +40,7 @@ impl<'a> Validator<'a> {
     pub(crate) fn validate_input(&mut self, node_id: &'a NodeId, input: &'a PortId) -> Result<()> {
         if !self.inputs.insert((node_id, input)) {
             bail!(
-                "Node < {} > declares the following input (at least) twice: < {} >",
-                node_id,
-                input
+                "Node < {node_id} > declares the following input (at least) twice: < {input} >"
             );
         }
 
@@ -57,9 +54,7 @@ impl<'a> Validator<'a> {
     ) -> Result<()> {
         if !self.outputs.insert((node_id, output)) {
             bail!(
-                "Node < {} > declares the following output (at least) twice: < {} >",
-                node_id,
-                output
+                "Node < {node_id} > declares the following output (at least) twice: < {output} >"
             );
         }
 
@@ -164,7 +159,7 @@ We have detected several links that point the same Input < {} >:
         if !unused_inputs.is_empty() {
             let mut error_message = "The following inputs are not connected: ".to_string();
             for (node, input) in unused_inputs {
-                error_message = format!("{}\n- {}: {}", error_message, node, input);
+                error_message = format!("{error_message}\n- {node}: {input}");
             }
 
             bail!(error_message);
@@ -173,7 +168,7 @@ We have detected several links that point the same Input < {} >:
         if !unused_outputs.is_empty() {
             let mut error_message = "The following outputs are not connected:".to_string();
             for (node, output) in unused_outputs {
-                error_message = format!("{}\n- {}: {}", error_message, node, output);
+                error_message = format!("{error_message}\n- {node}: {output}");
             }
 
             bail!(error_message);

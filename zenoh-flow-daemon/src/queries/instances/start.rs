@@ -129,7 +129,7 @@ async fn query_start(
     }) {
         Ok(query) => query,
         Err(e) => {
-            bail!("serde_json failed to serialize `start query`: {:?}", e)
+            bail!("serde_json failed to serialize `start query`: {e:?}")
         }
     };
 

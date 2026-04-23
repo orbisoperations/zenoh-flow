@@ -20,7 +20,9 @@ use zenoh::internal::{
 use zenoh_flow_daemon::daemon::*;
 use zenoh_plugin_trait::{plugin_long_version, plugin_version, Plugin, PluginControl};
 
-pub struct ZenohFlowPlugin(Sender<()>);
+// The Sender is retained so it is dropped together with the plugin, which
+// closes the channel and lets the spawned daemon task exit.
+pub struct ZenohFlowPlugin(#[allow(dead_code)] Sender<()>);
 
 pub const GIT_VERSION: &str = git_version::git_version!(prefix = "v", cargo_prefix = "v");
 

@@ -191,9 +191,8 @@ impl Runtime {
 Zenoh-Flow encountered a fatal internal error: a link is connecting two nodes that are on *different* runtime.
 
 The problematic link is:
-{}
-"#,
-                            link
+{link}
+"#
                         );
                     }
 
@@ -497,9 +496,8 @@ Maybe change the features in the Cargo.toml?
             let (_, outputs) = channels.remove(receiver_id).context(format!(
                 r#"
 Zenoh-Flow encountered a fatal internal error.
-The channels for the Outputs of Connector Receiver < {} > were not created.
-        "#,
-                receiver_id
+The channels for the Outputs of Connector Receiver < {receiver_id} > were not created.
+        "#
             ))?;
 
             let runner =
@@ -547,9 +545,8 @@ The channels for the Outputs of Connector Receiver < {} > were not created.
             let (inputs, _) = channels.remove(sender_id).context(format!(
                 r#"
 Zenoh-Flow encountered a fatal internal error.
-The channels for the Inputs of Connector Sender < {} > were not created.
-        "#,
-                sender_id
+The channels for the Inputs of Connector Sender < {sender_id} > were not created.
+        "#
             ))?;
 
             let runner = ZenohConnectorSender::try_new(

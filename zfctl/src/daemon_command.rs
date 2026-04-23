@@ -242,9 +242,7 @@ impl DaemonCommand {
                     .await
                     .map_err(|e| {
                         anyhow!(
-                            "Failed to query Zenoh-Flow daemon < {} >: {:?}",
-                            runtime_id,
-                            e
+                            "Failed to query Zenoh-Flow daemon < {runtime_id} >: {e:?}"
                         )
                     })?;
 

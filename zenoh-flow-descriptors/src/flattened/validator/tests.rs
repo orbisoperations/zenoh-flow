@@ -109,7 +109,7 @@ links:
     );
 
     assert!(res.is_err());
-    assert!(format!("{:?}", res).contains("A data flow must specify at least ONE Source."));
+    assert!(format!("{res:?}").contains("A data flow must specify at least ONE Source."));
 }
 
 #[test]
@@ -155,7 +155,7 @@ links:
     );
 
     assert!(res.is_err());
-    assert!(format!("{:?}", res).contains("A data flow must specify at least ONE Sink."));
+    assert!(format!("{res:?}").contains("A data flow must specify at least ONE Sink."));
 }
 
 #[test]
@@ -213,7 +213,7 @@ links:
     );
 
     assert!(res.is_err());
-    assert!(format!("{:?}", res).contains(
+    assert!(format!("{res:?}").contains(
         "Two nodes share the same identifier: < source-0 >. The identifiers must be unique."
     ));
 
@@ -272,7 +272,7 @@ links:
     );
 
     assert!(res.is_err());
-    assert!(format!("{:?}", res).contains(
+    assert!(format!("{res:?}").contains(
         "Two nodes share the same identifier: < source-0 >. The identifiers must be unique."
     ));
 
@@ -323,7 +323,7 @@ links:
     );
 
     assert!(res.is_err());
-    assert!(format!("{:?}", res).contains(
+    assert!(format!("{res:?}").contains(
         "Two nodes share the same identifier: < operator-0 >. The identifiers must be unique."
     ));
 }
@@ -378,7 +378,7 @@ links:
     );
 
     assert!(res.is_err());
-    assert!(format!("{:?}", res)
+    assert!(format!("{res:?}")
         .contains("Node < operator-0 > declares the following input (at least) twice: < in-0 >"));
 
     let yaml_duplicate_inputs_sink = r#"
@@ -429,7 +429,7 @@ links:
     );
 
     assert!(res.is_err());
-    assert!(format!("{:?}", res)
+    assert!(format!("{res:?}")
         .contains("Node < sink-0 > declares the following input (at least) twice: < in-0 >"));
 
     let yaml_duplicate_outputs_operator = r#"
@@ -480,7 +480,7 @@ links:
     );
 
     assert!(res.is_err());
-    assert!(format!("{:?}", res)
+    assert!(format!("{res:?}")
         .contains("Node < operator-0 > declares the following output (at least) twice: < out-0 >"));
 
     let yaml_duplicate_outputs_source = r#"
@@ -531,7 +531,7 @@ links:
     );
 
     assert!(res.is_err());
-    assert!(format!("{:?}", res)
+    assert!(format!("{res:?}")
         .contains("Node < source-0 > declares the following output (at least) twice: < out-0 >"));
 }
 
@@ -584,8 +584,8 @@ links:
     );
 
     assert!(res.is_err());
-    assert!(format!("{:?}", res).contains("Does the node < source-0 > exist?"));
-    assert!(format!("{:?}", res).contains("Does it declare an output named < ouuuuuut-0 >?"));
+    assert!(format!("{res:?}").contains("Does the node < source-0 > exist?"));
+    assert!(format!("{res:?}").contains("Does it declare an output named < ouuuuuut-0 >?"));
 
     let yaml_unknown_link_from_node = r#"
 name: unknown link
@@ -634,8 +634,8 @@ links:
     );
 
     assert!(res.is_err());
-    assert!(format!("{:?}", res).contains("Does the node < sooooooource-0 > exist?"));
-    assert!(format!("{:?}", res).contains("Does it declare an output named < out-0 >?"));
+    assert!(format!("{res:?}").contains("Does the node < sooooooource-0 > exist?"));
+    assert!(format!("{res:?}").contains("Does it declare an output named < out-0 >?"));
 
     let yaml_unknown_link_to_node = r#"
 name: unknown link
@@ -684,8 +684,8 @@ links:
     );
 
     assert!(res.is_err());
-    assert!(format!("{:?}", res).contains("Does the node < siiiiiiiiiiiink-0 > exist?"));
-    assert!(format!("{:?}", res).contains("Does it declare an input named < in-0 >?"));
+    assert!(format!("{res:?}").contains("Does the node < siiiiiiiiiiiink-0 > exist?"));
+    assert!(format!("{res:?}").contains("Does it declare an input named < in-0 >?"));
 
     let yaml_unknown_link_to_input = r#"
 name: unknown link
@@ -734,8 +734,8 @@ links:
     );
 
     assert!(res.is_err());
-    assert!(format!("{:?}", res).contains("Does the node < sink-0 > exist?"));
-    assert!(format!("{:?}", res).contains("Does it declare an input named < iiiiiiiiiin-0 >?"));
+    assert!(format!("{res:?}").contains("Does the node < sink-0 > exist?"));
+    assert!(format!("{res:?}").contains("Does it declare an input named < iiiiiiiiiin-0 >?"));
 }
 
 #[test]
@@ -789,9 +789,9 @@ links:
     );
 
     assert!(res.is_err());
-    assert!(format!("{:?}", res).contains("The following outputs are not connected:"));
-    assert!(format!("{:?}", res).contains("- source-0: out-1"));
-    assert!(format!("{:?}", res).contains("- operator-0: out-1"));
+    assert!(format!("{res:?}").contains("The following outputs are not connected:"));
+    assert!(format!("{res:?}").contains("- source-0: out-1"));
+    assert!(format!("{res:?}").contains("- operator-0: out-1"));
 
     let yaml_port_not_connected_input = r#"
 name: port not connected
@@ -842,9 +842,9 @@ links:
     );
 
     assert!(res.is_err());
-    assert!(format!("{:?}", res).contains("The following inputs are not connected:"));
-    assert!(format!("{:?}", res).contains("- operator-0: in-1"));
-    assert!(format!("{:?}", res).contains("- sink-0: in-1"));
+    assert!(format!("{res:?}").contains("The following inputs are not connected:"));
+    assert!(format!("{res:?}").contains("- operator-0: in-1"));
+    assert!(format!("{res:?}").contains("- sink-0: in-1"));
 }
 
 #[test]
@@ -926,7 +926,7 @@ links:
     );
 
     assert!(res.is_err());
-    assert!(format!("{:?}", res).contains("An Input can only receive data from a single Output."));
-    assert!(format!("{:?}", res)
+    assert!(format!("{res:?}").contains("An Input can only receive data from a single Output."));
+    assert!(format!("{res:?}")
         .contains("We have detected several links that point the same Input < sink-0.in >:"));
 }

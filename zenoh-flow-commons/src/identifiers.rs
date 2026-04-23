@@ -147,7 +147,7 @@ impl FromStr for RuntimeId {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         Ok(ZenohId::from_str(s)
-            .map_err(|e| anyhow!("Failed to parse < {} > as a valid ZenohId:\n{:?}", s, e))?
+            .map_err(|e| anyhow!("Failed to parse < {s} > as a valid ZenohId:\n{e:?}"))?
             .into())
     }
 }

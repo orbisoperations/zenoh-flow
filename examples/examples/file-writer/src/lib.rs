@@ -30,9 +30,9 @@ impl Node for FileWriter {
         let mut file = self.file.lock().await;
         file.write_all(greeting.as_bytes())
             .await
-            .map_err(|e| anyhow!("{:?}", e))?;
+            .map_err(|e| anyhow!("{e:?}"))?;
 
-        file.flush().await.map_err(|e| anyhow!("{:?}", e))
+        file.flush().await.map_err(|e| anyhow!("{e:?}"))
     }
 }
 
@@ -46,7 +46,7 @@ impl Sink for FileWriter {
         let file_path = if let Some(value) = configuration.get("file") {
             value
                 .as_str()
-                .unwrap_or_else(|| panic!("Unable to interpret < {} > as a string", value))
+                .unwrap_or_else(|| panic!("Unable to interpret < {value} > as a string"))
         } else {
             "/tmp/greetings.txt"
         };
@@ -55,7 +55,7 @@ impl Sink for FileWriter {
             file: Mutex::new(
                 File::create(file_path)
                     .await
-                    .unwrap_or_else(|e| panic!("Could not create '{}'", e)),
+                    .unwrap_or_else(|e| panic!("Could not create '{e}'")),
             ),
             input: inputs
                 .take("in")

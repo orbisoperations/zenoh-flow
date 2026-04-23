@@ -39,7 +39,7 @@ pub(crate) async fn spawn_instances_queryable(
             queryable
         }
         Err(e) => {
-            bail!("Failed to declare Zenoh queryable 'instances': {:?}", e)
+            bail!("Failed to declare Zenoh queryable 'instances': {e:?}")
         }
     };
 
@@ -98,7 +98,7 @@ pub(crate) async fn spawn_runtime_queryable(
             queryable
         }
         Err(e) => {
-            bail!("Failed to declare Zenoh queryable 'runtimes': {:?}", e)
+            bail!("Failed to declare Zenoh queryable 'runtimes': {e:?}")
         }
     };
 

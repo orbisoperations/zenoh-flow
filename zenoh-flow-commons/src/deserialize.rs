@@ -42,15 +42,14 @@ where
         return Err(serde::de::Error::custom(format!(
             r#"
 Identifiers (for nodes or ports) in Zenoh-Flow must *not* contain any of the characters: '*', '#', '$', '?', '>'.
-The identifier < {} > does not satisfy that condition.
+The identifier < {id} > does not satisfy that condition.
 
 These characters, except for '>', have a special meaning in Zenoh and they could negatively impact Zenoh-Flow's
 behaviour.
 
 The character '>' is used as a separator when flattening a composite operator. Allowing it could also negatively impact
 Zenoh-Flow's behaviour.
-"#,
-            id
+"#
         )));
     }
 
@@ -58,12 +57,11 @@ Zenoh-Flow's behaviour.
         serde::de::Error::custom(format!(
             r#"
 Identifiers (for nodes or ports) in Zenoh-Flow *must* be valid key-expressions in their canonical form.
-The identifier < {} > does not satisfy that condition.
+The identifier < {id} > does not satisfy that condition.
 
 Caused by:
-{:?}
-"#,
-            id, e
+{e:?}
+"#
         ))
     })?;
 
@@ -85,15 +83,13 @@ where
     let size_u64 = bytesize::ByteSize::from_str(&size_str)
         .map_err(|e| {
             serde::de::Error::custom(format!(
-                "Unable to parse value as bytes {size_str}:\n{:?}",
-                e
+                "Unable to parse value as bytes {size_str}:\n{e:?}"
             ))
         })?
         .as_u64();
 
     usize::try_from(size_u64).map_err(|e| serde::de::Error::custom(format!(
-        "Unable to convert < {} > into a `usize`. Maybe check the architecture of the target device?\n{:?}",
-        size_u64, e
+        "Unable to convert < {size_u64} > into a `usize`. Maybe check the architecture of the target device?\n{e:?}"
     )))
 }
 
@@ -116,8 +112,7 @@ where
 
     u64::try_from(time_u128).map_err(|e| {
         serde::de::Error::custom(format!(
-            "Unable to convert < {} > into a `u64`. Maybe lower the value?\n{:?}",
-            time_u128, e
+            "Unable to convert < {time_u128} > into a `u64`. Maybe lower the value?\n{e:?}"
         ))
     })
 }
@@ -130,6 +125,7 @@ mod tests {
 
     #[derive(Deserialize, Debug)]
     pub struct TestStruct {
+        #[allow(dead_code)] // read indirectly by serde via the Deserialize impl
         pub id: NodeId,
     }
 

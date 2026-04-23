@@ -142,19 +142,18 @@ impl DataFlowRecord {
 
             bail!(
                 r#"
-Zenoh-Flow encountered a fatal error: the node < {} > is not mapped to a runtime.
+Zenoh-Flow encountered a fatal error: the node < {node_id} > is not mapped to a runtime.
 Is its name valid (i.e. does it reference an actual node)?
-"#,
-                node_id
+"#
             )
         };
 
         let mut additional_mappings: HashMap<RuntimeId, HashSet<NodeId>> = HashMap::default();
         for link in links.iter_mut() {
             let runtime_from = try_get_mapping(&link.from.node)
-                .context(format!("Failed to process link:\n{}", link))?;
+                .context(format!("Failed to process link:\n{link}"))?;
             let runtime_to = try_get_mapping(&link.to.node)
-                .context(format!("Failed to process link:\n{}", link))?;
+                .context(format!("Failed to process link:\n{link}"))?;
 
             if runtime_from != runtime_to {
                 let key_expr_str = format!("{}/{}/{}", id, link.from.node, link.from.output);

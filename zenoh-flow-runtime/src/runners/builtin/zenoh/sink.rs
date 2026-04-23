@@ -77,10 +77,9 @@ impl<'a> ZenohSink<'a> {
                     .take(port.as_ref())
                     .context(format!(
                         r#"
-[built-in zenoh sink: {}][port: {}] Zenoh-Flow encountered a fatal internal error.
-No Input was created for port: < {1} > (key expression: {}).
+[built-in zenoh sink: {id}][port: {port}] Zenoh-Flow encountered a fatal internal error.
+No Input was created for port: < {port} > (key expression: {key_expr}).
 "#,
-                        id, port, key_expr,
                     ))?
                     .raw(),
             );
@@ -93,15 +92,11 @@ No Input was created for port: < {1} > (key expression: {}).
                     .map_err(|e| {
                         anyhow!(
                             r#"
-[built-in zenoh sink: {}][port: {}] Zenoh-Flow encountered a fatal internal error.
-Zenoh failed to declare a publisher on < {} >.
+[built-in zenoh sink: {id}][port: {port}] Zenoh-Flow encountered a fatal internal error.
+Zenoh failed to declare a publisher on < {key_expr} >.
 Caused by:
 
-{:?}"#,
-                            id,
-                            port,
-                            key_expr,
-                            e
+{e:?}"#
                         )
                     })?,
             );
@@ -208,7 +203,7 @@ Caused by:
                     publisher
                         .put(payload_buffer)
                         .await
-                        .map_err(|e| anyhow!("{:?}", e))?
+                        .map_err(|e| anyhow!("{e:?}"))?
                 }
             }
             Err(e) => tracing::error!(

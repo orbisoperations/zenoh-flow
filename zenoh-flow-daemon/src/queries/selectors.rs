@@ -33,10 +33,9 @@ const RUNTIMES: &str = "runtimes";
 fn autocanonize(maybe_ke: String) -> OwnedKeyExpr {
     OwnedKeyExpr::autocanonize(maybe_ke.clone()).unwrap_or_else(|e| {
         panic!(
-            r#"Zenoh-Flow internal error: < {} > is not a valid or canonical key expression
+            r#"Zenoh-Flow internal error: < {maybe_ke} > is not a valid or canonical key expression
 
-{e:?}"#,
-            maybe_ke
+{e:?}"#
         )
     })
 }
