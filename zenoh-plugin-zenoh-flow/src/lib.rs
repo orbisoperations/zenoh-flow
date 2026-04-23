@@ -29,7 +29,7 @@ zenoh_plugin_trait::declare_plugin!(ZenohFlowPlugin);
 
 impl ZenohPlugin for ZenohFlowPlugin {}
 impl Plugin for ZenohFlowPlugin {
-    type StartArgs = zenoh::internal::runtime::Runtime;
+    type StartArgs = zenoh::internal::runtime::DynamicRuntime;
     type Instance = zenoh::internal::plugins::RunningPlugin;
 
     const DEFAULT_NAME: &'static str = "zenoh-flow";
@@ -42,11 +42,10 @@ impl Plugin for ZenohFlowPlugin {
     ) -> zenoh::Result<zenoh::internal::plugins::RunningPlugin> {
         let _ = tracing_subscriber::fmt::try_init();
 
-        let zenoh_config = zenoh_runtime.config().lock();
-        let zenoh_flow_config = zenoh_config
-            .plugin(name)
-            .cloned()
-            .ok_or_else(|| zerror!("Plugin '{}': missing configuration", name))?;
+        let zenoh_flow_config = zenoh_runtime
+            .get_config()
+            .get_plugin_config(name)
+            .map_err(|_| zerror!("Plugin '{}': missing configuration", name))?;
 
         let (abort_tx, abort_rx) = flume::bounded(1);
         let zenoh_runtime = zenoh_runtime.clone();
