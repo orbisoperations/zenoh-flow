@@ -272,7 +272,7 @@ impl<T> Debug for DataInner<T> {
         match self {
             DataInner::Payload { payload, data } => {
                 let data = if data.is_some() { "Some" } else { "None" };
-                write!(f, "DataInner::Payload: {:?} - data: {}", payload, data)
+                write!(f, "DataInner::Payload: {payload:?} - data: {data}")
             }
             DataInner::Data(_) => write!(f, "DataInner::Data(T)"),
         }

@@ -42,24 +42,22 @@ where
     match path.extension().and_then(|ext| ext.to_str()) {
         Some("json") => Ok(|buf| {
             serde_json::from_str::<N>(buf)
-                .context(format!("Failed to deserialize from JSON:\n{}", buf))
+                .context(format!("Failed to deserialize from JSON:\n{buf}"))
         }),
         Some("yml") | Some("yaml") => Ok(|buf| {
             serde_yaml::from_str::<N>(buf)
-                .context(format!("Failed to deserialize from YAML:\n{}", buf))
+                .context(format!("Failed to deserialize from YAML:\n{buf}"))
         }),
         Some(extension) => bail!(
             r#"
-Unsupported file extension < {} > in:
-   {:?}
+Unsupported file extension < {extension} > in:
+   {path:?}
 
 Currently supported file extensions are:
 - .json
 - .yml
 - .yaml
-"#,
-            extension,
-            path
+"#
         ),
         None => bail!("Missing file extension in path:\n{}", path.display()),
     }

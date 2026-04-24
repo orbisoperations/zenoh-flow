@@ -141,7 +141,7 @@ impl InstancesQuery {
                         .get_instance_status(&instance_id)
                         .await
                         .ok_or_else(|| {
-                            anyhow!("Found no data flow with instance id < {} >", instance_id)
+                            anyhow!("Found no data flow with instance id < {instance_id} >")
                         }),
                 )
                 .await

@@ -92,10 +92,9 @@ impl RunLocalCommand {
         let mut input = [0_u8];
         println!(
             r#"
-                        The flow ({}) < {} > was successfully started.
+                        The flow ({record_name}) < {instance_id} > was successfully started.
                         To abort its execution, simply enter 'q'.
-                        "#,
-            record_name, instance_id
+                        "#
         );
 
         loop {

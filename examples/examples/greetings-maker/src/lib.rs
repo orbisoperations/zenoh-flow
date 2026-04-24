@@ -49,10 +49,10 @@ impl Node for GreetingsMaker {
         let name = characters.trim_end();
 
         let greetings = match name {
-            "Sofia" | "Leonardo" => format!("Ciao, {}!\n", name),
-            "Lucia" | "Martin" => format!("¡Hola, {}!\n", name),
-            "Jade" | "Gabriel" => format!("Bonjour, {} !\n", name),
-            _ => format!("Hello, {}!\n", name),
+            "Sofia" | "Leonardo" => format!("Ciao, {name}!\n"),
+            "Lucia" | "Martin" => format!("¡Hola, {name}!\n"),
+            "Jade" | "Gabriel" => format!("Bonjour, {name} !\n"),
+            _ => format!("Hello, {name}!\n"),
         };
 
         self.output.send(greetings, None).await

@@ -46,9 +46,9 @@ use crate::{
 /// - `name`     : A short human-readable summary of what your data flow will do.
 /// - `sources`  : A non-empty list of Source(s) to feed data into your data flow.
 /// - `operators`: A list of Operator(s) to perform transformation on the data. A data flow can have no Operator, in
-///                which case this section can be omitted.
+///   which case this section can be omitted.
 /// - `sinks`    : A non-empty list of Sink(s) to output the result of the transformation(s) performed in your data
-///                flow.
+///   flow.
 /// - `links`    : How the different nodes of your data flow are connected.
 ///
 /// Special, *optional*, sections can also be added to tweak a data flow:

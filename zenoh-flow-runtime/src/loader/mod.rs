@@ -259,7 +259,7 @@ impl Loader {
         node_symbol: &NodeSymbol,
     ) -> Result<(Arc<PathBuf>, Arc<Library>)> {
         let library_path = PathBuf::from_str(path)
-            .context(format!("Failed to convert path to a `PathBuf`:\n{}", path))?;
+            .context(format!("Failed to convert path to a `PathBuf`:\n{path}"))?;
 
         // The `rust_library_path`, exposing the symbols Zenoh-Flow will look for, is not always the same as the
         // `library_path`!

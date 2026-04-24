@@ -52,5 +52,5 @@ pub(crate) async fn validate_query<T: for<'a> Deserialize<'a>>(query: &Query) ->
         bail!("Received Query with empty payload")
     };
 
-    serde_json::from_slice::<T>(&payload.to_bytes()).map_err(|e| anyhow!("{:?}", e))
+    serde_json::from_slice::<T>(&payload.to_bytes()).map_err(|e| anyhow!("{e:?}"))
 }

@@ -58,8 +58,7 @@ impl ZenohSource {
                     .with_context(|| {
                         format!(
                             "{id}: fatal internal error: no channel was created for key \
-                             expression < {} >",
-                            key_expr
+                             expression < {key_expr} >"
                         )
                     })?
                     .raw(),
@@ -95,11 +94,9 @@ impl Node for ZenohSource {
                 .await
                 .map_err(|e| {
                     anyhow!(
-                        r#"fatal internal error: failed to declare a subscriber on < {} >
+                        r#"fatal internal error: failed to declare a subscriber on < {key_expr} >
 Caused by:
-{:?}"#,
-                        key_expr,
-                        e
+{e:?}"#
                     )
                 })?;
 

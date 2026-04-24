@@ -190,13 +190,13 @@ impl ZenohConnectorReceiver {
             .declare_keyexpr(record.resource())
             .await
             // TODO@J-Loudet
-            .map_err(|e| anyhow!("{:?}", e))?;
+            .map_err(|e| anyhow!("{e:?}"))?;
 
         let subscriber = session
             .declare_subscriber(ke)
             .await
             // TODO@J-Loudet
-            .map_err(|e| anyhow!("{:?}", e))?;
+            .map_err(|e| anyhow!("{e:?}"))?;
 
         let output_raw = outputs
             .take(record.resource())
@@ -233,7 +233,7 @@ impl Node for ZenohConnectorReceiver {
                     self.key_expr,
                     e
                 );
-                bail!("{:?}", e)
+                bail!("{e:?}")
             }
         }
     }

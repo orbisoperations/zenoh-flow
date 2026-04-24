@@ -130,12 +130,11 @@ links:
      input: in-2
 
 mapping:
-  {0}:
+  {runtime}:
     - source-0
     - operator-1
     - sink-2
-"#,
-        runtime
+"#
     );
 
     let flat_desc = FlattenedDataFlowDescriptor::try_flatten(
@@ -200,12 +199,11 @@ links:
      input: in-2
 
 mapping:
-  {0}:
+  {runtime_thing}:
     - source-0
-  {1}:
+  {runtime_edge}:
     - operator-1
-"#,
-        runtime_thing, runtime_edge
+"#
     );
 
     let flat_desc = FlattenedDataFlowDescriptor::try_flatten(
@@ -222,8 +220,8 @@ mapping:
     // assert the connectors
     let key_expr_thing_edge =
         OwnedKeyExpr::autocanonize(format!("{}/source-0/out-0", record.instance_id())).unwrap();
-    let sender_thing_edge: NodeId = format!("source-0{}", SENDER_SUFFIX).into();
-    let receiver_thing_edge: NodeId = format!("operator-1{}", RECEIVER_SUFFIX).into();
+    let sender_thing_edge: NodeId = format!("source-0{SENDER_SUFFIX}").into();
+    let receiver_thing_edge: NodeId = format!("operator-1{RECEIVER_SUFFIX}").into();
     assert_eq!(
         Some(&SenderRecord {
             id: sender_thing_edge.clone(),
@@ -241,8 +239,8 @@ mapping:
 
     let key_expr_edge_default =
         OwnedKeyExpr::autocanonize(format!("{}/operator-1/out-1", record.instance_id())).unwrap();
-    let sender_edge_default: NodeId = format!("operator-1{}", SENDER_SUFFIX).into();
-    let receiver_edge_default: NodeId = format!("sink-2{}", RECEIVER_SUFFIX).into();
+    let sender_edge_default: NodeId = format!("operator-1{SENDER_SUFFIX}").into();
+    let receiver_edge_default: NodeId = format!("sink-2{RECEIVER_SUFFIX}").into();
     assert_eq!(
         Some(&SenderRecord {
             id: sender_edge_default.clone(),
